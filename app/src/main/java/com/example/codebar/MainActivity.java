@@ -2,6 +2,7 @@ package com.example.codebar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity  {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,12 @@ public class MainActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         scancode();
                     }
-                }).setNegativeButton("Done", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Show Product", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //You can come back here to change it to another option.
-                        onStart();
+                        Intent goToNextActivity = new Intent(getApplicationContext(), Product_Result.class);
+                        startActivity(goToNextActivity);
                     }
                 });
                 AlertDialog dialog=builder.create();
