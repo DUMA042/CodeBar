@@ -38,13 +38,15 @@ public class MainActivity extends AppCompatActivity  {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+       String  barcode_result;
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult  result=IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (result!=null){
             if(result.getContents()!=null){
                 AlertDialog.Builder builder=new AlertDialog.Builder(this);
-                builder.setMessage(result.getContents());/**This is for the raw value(result.getContent) **/
+                barcode_result=result.getContents();
+                builder.setMessage(barcode_result);/**This is for the raw value(result.getContent) **/
+
                 builder.setTitle("Scanning Result");
                 builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
                     @Override
@@ -56,7 +58,9 @@ public class MainActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         //You can come back here to change it to another option.
                         Intent goToNextActivity = new Intent(getApplicationContext(), Product_Result.class);
+                        goToNextActivity.putExtra(Intent.EXTRA_TEXT,barcode_result);
                         startActivity(goToNextActivity);
+
                     }
                 });
                 AlertDialog dialog=builder.create();
@@ -72,5 +76,10 @@ public class MainActivity extends AppCompatActivity  {
         else {
             super.onActivityResult(requestCode,resultCode,data);
         }
+    }
+
+    public void see_history(View view) {
+        Intent gotohistory = new Intent(getApplicationContext(), ProductHistory.class);
+        startActivity(gotohistory);
     }
 }

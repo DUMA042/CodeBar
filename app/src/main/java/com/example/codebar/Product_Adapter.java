@@ -9,11 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.NumberViewHolder> {
-  private  int number_of_product_dispaly;
+
+  private List<Product_detail> product_details;
 final private ListItemClickListener mOnclickListener;
-    public Product_Adapter(int number_of_product_dispaly,ListItemClickListener mOnclickListener) {
-        this.number_of_product_dispaly = number_of_product_dispaly;
+
+    public Product_Adapter(List<Product_detail> product_details, ListItemClickListener mOnclickListener) {
+        this.product_details = product_details;
         this.mOnclickListener = mOnclickListener;  //Pass it to the view holder to be invoke
     }
 
@@ -24,27 +29,34 @@ public  interface  ListItemClickListener{
 
     @NonNull
     @Override
-    public NumberViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NumberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       Context context=parent.getContext();
       int product_recycle_id=R.layout.product_recyclic;
       LayoutInflater inflater=LayoutInflater.from(context);
       boolean ShouldAttachtoParent=false;
       View view=inflater.inflate(product_recycle_id,parent,ShouldAttachtoParent);//Takes in layout xml
-      NumberViewHolder viewHolder=new NumberViewHolder(view);//Pass to NumberViewHolder
+      //NumberViewHolder viewHolder=new NumberViewHolder(view);//Pass to NumberViewHolder
 //returns a view.
-        return viewHolder;
+        return new NumberViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(NumberViewHolder holder, int position) {
- holder.bind(position);
+        Product_detail per_product=product_details.get(position);
+        holder.productName.setText(per_product.getProduct_name());
+        holder.store_name.setText(per_product.getStore_name());
+        holder.price_currency.setText(per_product.getPrice_currency());
+        holder.manufact.setText(per_product.getManufacturer());
+
+       // holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
 //Returns n number
-      return number_of_product_dispaly ;
+      return product_details.size() ;
     }
+
     
     class NumberViewHolder extends  RecyclerView.ViewHolder implements  View.OnClickListener{
   TextView productName;
@@ -80,8 +92,10 @@ public  interface  ListItemClickListener{
 
       public void bind(int position) {
 
+         notifyDataSetChanged();
 
       }
+
 
         @Override
         public void onClick(View v) {

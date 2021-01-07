@@ -20,7 +20,16 @@
         android:layout_height="wrap_content"
         android:onClick="press_to_scan"
         android:text="@string/Press_scan"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="436dp" />
+        android:background="@drawable/style_button"
+        android:layout_marginBottom="10dp"
+        />
+    <Button
+        android:id="@+id/history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="see_history"
+        android:text="@string/product_history"
+        android:background="@drawable/style_button"
+         />
 
 </LinearLayout>

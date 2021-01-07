@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MoreInfo">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description :"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#BF6E6E"
+            android:id="@+id/Description_info_tag"
+            android:paddingRight="15dp">
+
+      </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description_details"
+            android:textStyle="italic"
+            android:textSize="23sp"
+            android:textColor="#C6226DBD"
+            android:id="@+id/Description_info">
+        </TextView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Info:"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#BF6E6E"
+            android:id="@+id/Fe_info_tag"
+            android:paddingRight="15dp">
+
+        </TextView>
+        </ScrollView>
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feature"
+        android:textStyle="italic"
+        android:textSize="23sp"
+        android:textColor="#C6226DBD"
+        android:id="@+id/fe_info">
+    </TextView>
+</ScrollView>
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
