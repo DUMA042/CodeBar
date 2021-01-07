@@ -23,18 +23,18 @@ public class NetworkUtils {
     final static String PARAM_Formatted = "formatted";
     final static String PARAM_Key = "key";
     final static String type_formatted= "y";
-    final static String type_key="8d897584sx0vf79xpnwqi3kx5lqlkf";
+    final static String type_key="8d897584sx0vf79xpnwqi3kx5lqlkf";/*This is the API Key*/
 //https://api.barcodelookup.com/v2/products?barcode=5449000000996&formatted=y&key=8d897584sx0vf79xpnwqi3kx5lqlkf
     /**
-     * Builds the URL used to query GitHub.
+     * Builds the URL used to query .
      *
-     * @param githubSearchQuery The keyword that will be queried for.
-     * @return The URL to use to query the GitHub server.
+     * @param productSearchQuery The keyword that will be queried for.
+     * @return The URL to use to query the Barcode Database server(https://www.barcodelookup.com/).
      */
-    public static URL buildUrl(String githubSearchQuery) {
+    public static URL buildUrl(String productSearchQuery) {
         // TODO (1) Fill in this method to build the proper GitHub query URL
         Uri builtUri=Uri.parse(Product_detail_URL).buildUpon()
-                .appendQueryParameter(PARAM_QUERY,githubSearchQuery)
+                .appendQueryParameter(PARAM_QUERY,productSearchQuery)
                 .appendQueryParameter(PARAM_Formatted,type_formatted)
                 .appendQueryParameter(PARAM_Key,type_key)
                 .build();

@@ -14,8 +14,8 @@ import java.util.List;
 
 public class Product_Adapter extends RecyclerView.Adapter<Product_Adapter.NumberViewHolder> {
 
-  private List<Product_detail> product_details;
-final private ListItemClickListener mOnclickListener;
+  private List<Product_detail> product_details;//List Containing Product Details
+final private ListItemClickListener mOnclickListener;//Object of ListItemClickListener to enable clickListener
 
     public Product_Adapter(List<Product_detail> product_details, ListItemClickListener mOnclickListener) {
         this.product_details = product_details;
@@ -27,19 +27,33 @@ public  interface  ListItemClickListener{
 
 }
 
+    /**
+     *
+     * @param parent
+     * @param viewType
+     * @return NumberViewHolder
+     */
     @NonNull
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       Context context=parent.getContext();
-      int product_recycle_id=R.layout.product_recyclic;
+      int product_recycle_id=R.layout.product_recyclic;//Get the product Id for the Recycle XMl File
       LayoutInflater inflater=LayoutInflater.from(context);
       boolean ShouldAttachtoParent=false;
       View view=inflater.inflate(product_recycle_id,parent,ShouldAttachtoParent);//Takes in layout xml
-      //NumberViewHolder viewHolder=new NumberViewHolder(view);//Pass to NumberViewHolder
+
 //returns a view.
         return new NumberViewHolder(view);
     }
 
+    /**
+     *
+     * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     *      *
+     * @param position Get the position of the Item within the Adapter
+     *  OnBindViewHolder is called by the RecyclerView to display the data at the specified position.
+     *
+     */
     @Override
     public void onBindViewHolder(NumberViewHolder holder, int position) {
         Product_detail per_product=product_details.get(position);
@@ -51,12 +65,19 @@ public  interface  ListItemClickListener{
        // holder.bind(position);
     }
 
+    /**
+     *
+     * @return int The number of View to be Displayed
+     */
     @Override
     public int getItemCount() {
 //Returns n number
       return product_details.size() ;
     }
 
+    /**
+     * Cache of the children views for a list item.
+     */
     
     class NumberViewHolder extends  RecyclerView.ViewHolder implements  View.OnClickListener{
   TextView productName;
@@ -84,17 +105,7 @@ public  interface  ListItemClickListener{
 
 
       }
-      /**
-       * A method we wrote for convenience. This method will take an integer as input and
-       * use that integer to display the appropriate text within a list item.
-       * @param position Position of the item in the list
-       */
 
-      public void bind(int position) {
-
-         notifyDataSetChanged();
-
-      }
 
 
         @Override

@@ -22,6 +22,7 @@ import java.util.List;
 
 public class Product_Result extends AppCompatActivity implements Product_Adapter.ListItemClickListener {
 
+
     private  Product_Adapter product_adapter;
     private RecyclerView product_List;
     private Toast toast=null;
@@ -37,22 +38,23 @@ public class Product_Result extends AppCompatActivity implements Product_Adapter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__result);
+        //Initializing Variables
        product_List=findViewById(R.id.product_display) ;
        mLoading=findViewById(R.id.pb_loading);
-       //str_text=findViewById(R.id.query_str);
-       mDb=ProductDatabase.getInstance(getApplicationContext());
+       mDb=ProductDatabase.getInstance(getApplicationContext());//Initializing ProductDataBase.
+        //Creating an Intent
         Intent intentThatStartedThisActivity = getIntent();
+        //Getting the Data Contained In the Intent which is the Barcode Raw Numbers
          BarCode = intentThatStartedThisActivity.getStringExtra(Intent.EXTRA_TEXT);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         product_List.setLayoutManager(layoutManager);
         product_List.setHasFixedSize(true);//allows recyclerView to do some optimization on the UI
-       // product_adapter=new Product_Adapter(product_details,this);//this is where the product_detail is passed to the Recycle view
-       // product_List.setAdapter(product_adapter);//this will set the adapter
-
+       /*Pass Into the makeproductSearchQuery function :This is need to set up the data for the Http Request */
         makeproductSearchQuery();
     }
     /**
      * This is for the Query and URL Operation
+     * Http AsynTask start and runs a Separate Thread
      */
 
     public class ProductQueryFun extends AsyncTask<URL,Void,String> {
@@ -61,23 +63,24 @@ public class Product_Result extends AppCompatActivity implements Product_Adapter
             super.onPreExecute();
           mLoading.setVisibility(View.VISIBLE);
         }
-
+/*The doInBackground Runs in the another thread and gets the JSON Tree from the request */
         @Override
         protected String doInBackground(URL... urls) {
             URL searchUrl=urls[0];
-            String githubSearchResults=null;
+            String productSearchResults=null;
 
             try {
-                githubSearchResults=NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                productSearchResults=NetworkUtils.getResponseFromHttpUrl(searchUrl);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return githubSearchResults;
+            /*Returns the JSON Tree to ProExecute*/
+            return productSearchResults;
         }
-
+//onPostExecute receives Data from the doInbackground
+      /*Fuction need to go through the Tree and get Important details about Product*/
         @Override
-
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
@@ -86,6 +89,9 @@ public class Product_Result extends AppCompatActivity implements Product_Adapter
 
             String prod_fea="";
             try {
+                //JSON object and Arrays Depending on the Tree Structure and Target Data need
+                /*The movement along the tree will be done*/
+                /*For this Data it returns  a Tree with only on Array called product So I start from that*/
                 JSONObject jsObj = new JSONObject(s);;
                 JSONArray jsProduct= jsObj.getJSONArray("products");
                 JSONObject jsonlyobj=jsProduct.getJSONObject(0);
@@ -115,8 +121,9 @@ public class Product_Result extends AppCompatActivity implements Product_Adapter
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+/*Call the mLoading to Invisible to stop the Progress Bar from showing*/
 mLoading.setVisibility(View.INVISIBLE);
+/*Set up the Product Details to the Adapter to Display to the User in makeRecycle*/
 makeRecycle();
 
 
@@ -142,14 +149,17 @@ private  void makeRecycle(){
 
     }
 
-
+    /**
+     * This fuction also set the Data to be displayed when you click on an Item in the RecycleView
+     * @param clickItemIndex
+     */
     @Override
     public void onListItemClick(int clickItemIndex) {
 
         String ans=String.valueOf(clickItemIndex);
-        Product_detail product_info=product_details.get(clickItemIndex);
+        Product_detail product_info=product_details.get(clickItemIndex);//Get the description and Features  from the class object
         Intent intent = new Intent(getApplicationContext(), MoreInfo.class);
-        intent.putExtra("INFO", product_info);
+        intent.putExtra("INFO", product_info);//INFO is Key Word for the Intent will be used to view the get the data
         startActivity(intent);
 
     }

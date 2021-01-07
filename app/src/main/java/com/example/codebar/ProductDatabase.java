@@ -9,6 +9,11 @@ import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
+/**
+ * This Class help to create a Database Using the room API
+ *
+ */
 @Database(entities ={Product_detail.class},version=1,exportSchema =false)
 public abstract class ProductDatabase extends RoomDatabase {
     private static  final  Object lock =new Object();

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity  {
     public void press_to_scan(View view) {
         scancode();
     }
-
+//sets and calls the Integrator to use the library
     private  void scancode(){
         IntentIntegrator integrator =new IntentIntegrator(this);
         integrator.setCaptureActivity(Capture.class);
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity  {
         integrator.initiateScan();
 
     }
+    //To set and open AlterDialog builder
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
        String  barcode_result;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
                 }).setNegativeButton("Show Product", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //You can come back here to change it to another option.
+                        //Creates Intents to pass the barcode value to the next Activity
                         Intent goToNextActivity = new Intent(getApplicationContext(), Product_Result.class);
                         goToNextActivity.putExtra(Intent.EXTRA_TEXT,barcode_result);
                         startActivity(goToNextActivity);
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity  {
 
             }
             else {
-                Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"No Results",Toast.LENGTH_LONG).show();//It nothing is Scanned it shows no Result
 
             }
         }
@@ -77,6 +78,8 @@ public class MainActivity extends AppCompatActivity  {
             super.onActivityResult(requestCode,resultCode,data);
         }
     }
+    //Creates an Intent to take you to Activity Producthistory
+    
 
     public void see_history(View view) {
         Intent gotohistory = new Intent(getApplicationContext(), ProductHistory.class);

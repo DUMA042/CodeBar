@@ -11,12 +11,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Connect the DataBase(Client(Phone)) to the Class
+ */
 public class ProductHistory extends AppCompatActivity implements Product_Adapter.ListItemClickListener {
+
 private ProductDatabase mDb;
 private List<Product_detail> product_details;
 RecyclerView recyclerView_history;
 Product_Adapter product_adapter;
-Toast toast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,10 @@ Toast toast;
         product_adapter=new Product_Adapter(mDb.productDao().loadAllProduct(),this);//this is where the product_detail is passed to the Recycle view
         recyclerView_history.setAdapter(product_adapter);//this will set the adapter
     }
-
+    /**
+     * This fuction also set the Data to be displayed when you click on an Item in the RecycleView
+     * @param clickItemIndex
+     */
     @Override
     public void onListItemClick(int clickItemIndex) {
 
@@ -45,7 +51,7 @@ Toast toast;
         List<Product_detail> product_details=mDb.productDao().loadAllProduct();
         Product_detail product_info=product_details.get(clickItemIndex);
         Intent intent = new Intent(getApplicationContext(), MoreInfo.class);
-        intent.putExtra("INFO", product_info);
+        intent.putExtra("INFO", product_info);//INFO is Key Word for the Intent will be used to view the get the data
         startActivity(intent);
 
 
